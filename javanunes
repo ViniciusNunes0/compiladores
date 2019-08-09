@@ -1,0 +1,35 @@
+JavaNunes{
+
+    float a
+    a = 4
+    system(a)
+    
+    float b
+    b = a + 4 - 3 * 2
+    system(b)
+    
+    float c
+    c = 20/5
+    system(c)
+    
+    float d 
+    d = a ** 2
+    system(d)
+    
+    float e
+    scanner(e)
+    system(e)
+    
+    float f
+    f = @/4
+    system(f)
+    
+    int a
+    ba = 2
+    system(ba)
+    
+    float ei = 2 
+    system(ei)
+    
+}FimJavaNunes
+

@@ -20,7 +20,8 @@ RAIZ "@/"
 
 ATRIBUICAO ("=")
 
-CONDICAO ("if"|"else")
+IF ("if")
+ELSE ("else")
 
 REPETICAO ("while"|"for")
 
@@ -39,6 +40,8 @@ IGNORE [\ \n\t]
 	return REAL;
 	}
 	
+IF {return IF;}
+ELSE {return ELSE;}
 
 {LEITURA} { return LEITURA; }
 {ESCRITA} { return ESCRITA; } 

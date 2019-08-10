@@ -36,6 +36,9 @@
         nova->next = l;
         return nova;      
     }
+
+    Vars* l1;
+    int OK;
     
 %}
 %union {
@@ -52,6 +55,9 @@
 %token <str>TIPO
 %token LEITURA
 %token ESCRITA
+%token IF
+%token ELSE
+
 %left '+' '-'
 %left '*' '/'
 %right POT
@@ -59,6 +65,7 @@
 %right NEG
 %type <real> exp
 %type <real> valor
+%nonassoc IFX
 %%
 
 prog: INICIO cod FIM
@@ -113,7 +120,27 @@ cmdos: ESCRITA '(' exp ')' {
        }
 
     }
+    | IF '(' teste ')' cmdos %prec IFX
+							
+	| IF '(' teste ')' cmdosif ELSE cmdos
+							
+	| '{' cmdos_lst '}'	{
+							OK = 1;//voltando a true após lista de comandos
+						}
+	
     ;
+
+cmdosif:
+	 '{' cmdos_lst '}' {
+			if(OK==1) OK=0; //controlando true/false para o ELSE
+			else OK=1;
+			}
+	;
+cmdos_lst:
+		cmdos
+	|	cmdos_lst cmdos
+	;
+	
     
 exp: exp '+' exp {$$ = $1 + $3; }
     |exp '-' exp {$$ = $1 - $3; }
@@ -141,9 +168,18 @@ exp: exp '+' exp {$$ = $1 + $3; }
 valor: REAL {$$ = $1;}
     ;
 
+teste: exp '<' exp {
+					if ($1 < $3) OK = 1;//true
+					else OK = 0;//false
+					}
+	;
+
 %%
 #include "lex.yy.c"
 int main(){
+    OK = 1; //para marcar true ou false
+	l1 = NULL;
+
     yyin = fopen("javanunes","r");
     yyparse();
     yylex();

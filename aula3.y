@@ -57,7 +57,9 @@
 %token ESCRITA
 %token IF
 %token ELSE
-
+%token MAIOR
+%token MENOR
+%token IGUAL
 %left '+' '-'
 %left '*' '/'
 %right POT
@@ -168,7 +170,7 @@ exp: exp '+' exp {$$ = $1 + $3; }
 valor: REAL {$$ = $1;}
     ;
 
-teste: exp '<' exp {
+teste: exp MENOR exp {
 					if ($1 < $3) OK = 1;//true
 					else OK = 0;//false
 					}

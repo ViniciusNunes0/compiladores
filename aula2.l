@@ -25,7 +25,9 @@ ELSE ("else")
 
 REPETICAO ("while"|"for")
 
-CARACLOGICOS ("<"|">"|"==")
+MAIOR ">"
+MENOR "<"
+IGUAL "=="
 
 COMENTARIO ["#"](.)+
 COMENTARIOMULT ("/*")((.)*|[\ \n\t])*("*/")
@@ -49,6 +51,9 @@ ELSE {return ELSE;}
 [-+()=/*] {return *yytext;}
 {POT} { return POT; }
 {RAIZ} {return RAIZ; }
+MAIOR {return MAIOR; }
+MENOR {return MENOR; }
+IGUAL {return IGUAL; }
 
 {INICIO} {return INICIO;}
 {FIM} {return FIM;}

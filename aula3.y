@@ -60,6 +60,12 @@
 %token MAIOR
 %token MENOR
 %token IGUAL
+%token MAIORIGUAL
+%token MENORIGUAL
+%token IGUALIQUAL
+%token DIFERENTE
+%token E
+%token OU
 %left '+' '-'
 %left '*' '/'
 %right POT
@@ -67,6 +73,7 @@
 %right NEG
 %type <real> exp
 %type <real> valor
+%type <inte> cond
 %nonassoc IFX
 %%
 
@@ -78,17 +85,22 @@ cod: cod cmdos
     ;
     
 cmdos: ESCRITA '(' exp ')' {
-        if (err != -1)
-            printf ("%.2f \n",$3);
+        if(OK == 1){
+            if (err != -1)
+                printf ("%.2f \n",$3);
             err = 0;
         }
+    }
 	| TIPO VAR {
-        Vars *aux = buscaVars(lista, $2);
-       if(aux == NULL){
-           lista = insereLista(lista, $2);   
-       }else{
-           printf("%s -> Variavel já Declarada!\n", $2);
-       }
+        if(OK == 1){
+            Vars *aux = buscaVars(lista, $2);
+            
+            if(aux == NULL){
+                lista = insereLista(lista, $2);   
+            }else{
+                printf("%s -> Variavel já Declarada!\n", $2);
+            }
+        }
     }    
     | TIPO VAR '=' exp {
          Vars *aux = buscaVars(lista, $2); 
@@ -122,9 +134,9 @@ cmdos: ESCRITA '(' exp ')' {
        }
 
     }
-    | IF '(' teste ')' cmdos %prec IFX
+    | IF '(' cond ')' cmdos %prec IFX
 							
-	| IF '(' teste ')' cmdosif ELSE cmdos
+	| IF '(' cond ')' cmdosif ELSE cmdos
 							
 	| '{' cmdos_lst '}'	{
 							OK = 1;//voltando a true após lista de comandos
@@ -170,16 +182,48 @@ exp: exp '+' exp {$$ = $1 + $3; }
 valor: REAL {$$ = $1;}
     ;
 
-teste: exp MENOR exp {
-					if ($1 < $3) OK = 1;//true
-					else OK = 0;//false
-					}
-	;
+cond: exp MENOR exp {
+			if ($1 < $3) $$=OK = 1;
+			else $$=OK = 0;
+			}
+	| exp MAIOR exp {
+            if ($1 > $3) $$=OK = 1;
+			else $$=OK = 0;
+            }
+    |exp IGUAL exp {
+            if ($1 == $3) $$=OK = 1;
+			else $$=OK = 0;
+            }
+    |exp MAIORIGUAL exp {
+            if ($1 >= $3) $$=OK = 1;
+            else $$=OK = 0;
+            }
+    |exp MENORIGUAL exp {
+            if ($1 <= $3) $$=OK = 1;
+            else $$=OK = 0;
+    }
+    |exp IGUALIQUAL exp {
+            if ($1 == $3) $$=OK = 1;
+            else $$=OK = 0;
+    }
+    |exp DIFERENTE exp {
+            if ($1 != $3) $$=OK = 1;
+            else $$=OK = 0;
+    }
+    |cond E cond {
+            if (($1 == 1) && ($3==1)) $$=OK = 1;
+            else $$=OK = 0;
+    }
+    |cond OU cond {
+            if (($1 == 0) && ($3==0)) $$=OK = 0;
+            else $$=OK = 1;
+    }
+    ;
 
 %%
 #include "lex.yy.c"
 int main(){
-    OK = 1; //para marcar true ou false
+    OK = 1;
 	l1 = NULL;
 
     yyin = fopen("javanunes","r");

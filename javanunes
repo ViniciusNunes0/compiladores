@@ -15,11 +15,7 @@ JavaNunes{
     float d 
     d = a ** 2
     system(d)
-    
-    float e
-    scanner(e)
-    system(e)
-    
+   
     float f
     f = @/4
     system(f)
@@ -28,8 +24,12 @@ JavaNunes{
     ba = 2
     system(ba)
     
-    float ei = 2 
-    system(ei)
+    if( 3 == 30 or 3 != 3) {
+        system(1)
+    }
+    else{
+        system(0)
+    }
     
 }FimJavaNunes
 

@@ -25,15 +25,7 @@ ELSE ("else")
 
 REPETICAO ("while"|"for")
 
-MAIOR (">")
-MENOR ("<")
-IGUAL ("==")
-MAIORIGUAL (">=")
-MENORIGUAL ("<=")
-IGUALIQUAL (==)
-DIFERENTE (!=)
-E ("and")
-OU ("or")
+CARACLOGICOS ("<"|">"|"==")
 
 COMENTARIO ["#"](.)+
 COMENTARIOMULT ("/*")((.)*|[\ \n\t])*("*/")
@@ -54,19 +46,9 @@ ELSE {return ELSE;}
 {LEITURA} { return LEITURA; }
 {ESCRITA} { return ESCRITA; } 
 
-[-+()=/*{}] {return *yytext;}
+[-+()=/*] {return *yytext;}
 {POT} { return POT; }
 {RAIZ} {return RAIZ; }
-{MAIOR} {return MAIOR; }
-{MENOR} {return MENOR; }
-{IGUAL} {return IGUAL; }
-{MAIORIGUAL} { return MAIORIGUAL; }
-{MENORIGUAL} { return MENORIGUAL; }
-{IGUALIQUAL} { return IGUALIQUAL; }
-{DIFERENTE} { return DIFERENTE; }
-{E} { return E; }
-{OU} { return OU; }
-
 
 {INICIO} {return INICIO;}
 {FIM} {return FIM;}

@@ -14,7 +14,81 @@
         float valor;
         struct vars *next;
     }Vars;
-    
+
+    ////////////////
+    typedef struct ast {
+        int nodetype;
+        struct ast *l;
+        struct ast *r;
+    }Ast; 
+    typedef struct numval {
+	int nodetype;
+	double number;
+}Numval;
+
+Ast * newast(int nodetype, Ast *l, Ast *r){
+
+	Ast *a = (Ast*) malloc(sizeof(Ast));
+	if(!a) {
+		printf("out of space");
+		exit(0);
+	}
+	a->nodetype = nodetype;
+	a->l = l;
+	a->r = r;
+	return a;
+}
+ 
+Ast * newnum(double d) {
+	Numval *a = (Numval*) malloc(sizeof(Numval));
+	if(!a) {
+		printf("out of space");
+		exit(0);
+	}
+	a->nodetype = 'K';
+	a->number = d;
+	return (Ast*)a;
+}
+
+double eval(Ast *a) {
+	double v; 
+	switch(a->nodetype) {
+		case 'K': v = ((struct numval *)a)->number; break;
+		case '+': v = eval(a->l) + eval(a->r); break;
+		case '-': v = eval(a->l) - eval(a->r); break;
+		case '*': v = eval(a->l) * eval(a->r); break;
+		case '/': v = eval(a->l) / eval(a->r); break;
+		case '|': v = eval(a->l); if(v < 0) v = -v; break;
+		case 'M': v = -eval(a->l); break;
+		case '^': v = pow(eval(a->l) , eval(a->r)); break;
+		case '@': v = sqrt(eval(a->l)); break;
+
+		default: printf("internal error: bad node %c\n", a->nodetype);
+	}
+	return v;
+}
+
+void treefree(Ast *a) {
+		switch(a->nodetype) {
+		/* two subtrees */
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+			case'^':
+			case '@':
+			treefree(a->r);
+		/* one subtree */
+			case '|':
+			case 'M':
+			treefree(a->l);
+		/* no subtree */
+			case 'K':
+				free(a);
+				break;
+	}
+}
+
     Vars *lista = NULL;
     
     int err = 0;
@@ -45,6 +119,8 @@
     float real;
     int inte;
     char str[50];
+    
+    Ast *a;
 }
 
 %token INICIO
@@ -68,10 +144,10 @@
 %token OU
 %left '+' '-'
 %left '*' '/'
-%right POT
-%right RAIZ
+%right '^'
+%right '@'
 %right NEG
-%type <real> exp
+%type <a> exp
 %type <real> valor
 %type <inte> cond
 %nonassoc IFX
@@ -87,7 +163,7 @@ cod: cod cmdos
 cmdos: ESCRITA '(' exp ')' {
         if(OK == 1){
             if (err != -1)
-                printf ("%.2f \n",$3);
+                printf ("%.2f \n",eval($3));
             err = 0;
         }
     }
@@ -106,7 +182,7 @@ cmdos: ESCRITA '(' exp ')' {
          Vars *aux = buscaVars(lista, $2); 
         if(aux == NULL){
             lista = insereLista(lista, $2);  
-            lista->valor = $4;
+            lista->valor = eval($4);
         }else{
             printf("%s -> Variavel já Declarada!\n", $2);
         }   
@@ -120,7 +196,7 @@ cmdos: ESCRITA '(' exp ')' {
            printf("%s -> Variavel não está Declarada!\n", $1);
            
        }else{
-            aux->valor = $3;
+            aux->valor = eval($3);
        }
     }
     | LEITURA '(' VAR ')' {
@@ -139,14 +215,14 @@ cmdos: ESCRITA '(' exp ')' {
 	| IF '(' cond ')' cmdosif ELSE cmdos
 							
 	| '{' cmdos_lst '}'	{
-							OK = 1;//voltando a true após lista de comandos
+							OK = 1;
 						}
 	
     ;
 
 cmdosif:
 	 '{' cmdos_lst '}' {
-			if(OK==1) OK=0; //controlando true/false para o ELSE
+			if(OK==1) OK=0;
 			else OK=1;
 			}
 	;
@@ -156,15 +232,15 @@ cmdos_lst:
 	;
 	
     
-exp: exp '+' exp {$$ = $1 + $3; }
-    |exp '-' exp {$$ = $1 - $3; }
-    |exp '*' exp {$$ = $1 * $3; }
-    |exp '/' exp {$$ = $1 / $3; }
-    |'(' exp ')' {$$ = $2;}
-    |exp POT exp {$$ = pow($1,$3); }
-    |RAIZ exp {$$ = sqrt($2);}
-    |'-' exp %prec NEG {$$ = -$2;}
-    |valor { $$ = $1; }
+exp: exp '+' exp {$$ = newast('+',$1,$3);}
+    |exp '-' exp {$$ = newast('-',$1,$3);}
+    |exp '*' exp {$$ = newast('*',$1,$3);}
+	|exp '/' exp {$$ = newast('/',$1,$3);}
+	|'(' exp ')' {$$ = $2;}
+	|'-' exp %prec NEG {$$ = newast('M',$2,NULL);}  
+    |exp '^' exp {$$ = newast('^',$1,$3);}
+    |'@' exp {$$ = newast('@',$2,NULL);}
+    |valor {$$ = newnum($1);}
     |VAR { 
             Vars *aux = buscaVars(lista, $1);
 
@@ -173,7 +249,11 @@ exp: exp '+' exp {$$ = $1 + $3; }
                 printf("%s -> NullPointerException\n", $1);                
                 err = -1;
             } else {
-                $$ = aux->valor;
+                Numval* nv = (Numval*)malloc(sizeof(Numval));
+                nv->number = aux->valor; 
+                nv-> nodetype = 'K';
+                $$ = (Ast*)nv;
+    
             }
         
         }
@@ -201,23 +281,23 @@ cond: exp MENOR exp {
     |exp MENORIGUAL exp {
             if ($1 <= $3) $$=OK = 1;
             else $$=OK = 0;
-    }
+            }
     |exp IGUALIQUAL exp {
             if ($1 == $3) $$=OK = 1;
             else $$=OK = 0;
-    }
+            }
     |exp DIFERENTE exp {
             if ($1 != $3) $$=OK = 1;
             else $$=OK = 0;
-    }
+            }
     |cond E cond {
             if (($1 == 1) && ($3==1)) $$=OK = 1;
             else $$=OK = 0;
-    }
+            }
     |cond OU cond {
             if (($1 == 0) && ($3==0)) $$=OK = 0;
             else $$=OK = 1;
-    }
+            }
     ;
 
 %%

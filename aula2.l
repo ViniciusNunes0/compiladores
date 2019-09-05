@@ -15,8 +15,8 @@ TIPO ("int"|"float"|"double")
 VAR [A-Za-z]+[0-9A-Za-z]*
 
 OPERACAOARI ("+"|"-"|"*"|"/")
-POT "**"
-RAIZ "@/"
+POT "^"
+RAIZ "@"
 
 ATRIBUICAO ("=")
 
@@ -54,9 +54,8 @@ ELSE {return ELSE;}
 {LEITURA} { return LEITURA; }
 {ESCRITA} { return ESCRITA; } 
 
-[-+()=/*{}] {return *yytext;}
-{POT} { return POT; }
-{RAIZ} {return RAIZ; }
+[-+()=/*{}^@] {return *yytext;}
+
 {MAIOR} {return MAIOR; }
 {MENOR} {return MENOR; }
 {IGUAL} {return IGUAL; }

@@ -80,7 +80,6 @@
         struct vars *next;
     }Vars;
 
-    ////////////////
     typedef struct ast {
         int nodetype;
         struct ast *l;
@@ -180,7 +179,7 @@ void treefree(Ast *a) {
     int OK;
     
 
-#line 184 "aula3.tab.c" /* yacc.c:339  */
+#line 183 "aula3.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -241,7 +240,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 118 "aula3.y" /* yacc.c:355  */
+#line 117 "aula3.y" /* yacc.c:355  */
 
     float real;
     int inte;
@@ -249,7 +248,7 @@ union YYSTYPE
     
     Ast *a;
 
-#line 253 "aula3.tab.c" /* yacc.c:355  */
+#line 252 "aula3.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -266,7 +265,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 270 "aula3.tab.c" /* yacc.c:358  */
+#line 269 "aula3.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -565,10 +564,10 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   156,   156,   159,   160,   163,   170,   181,   191,   202,
-     213,   215,   217,   224,   230,   231,   235,   236,   237,   238,
-     239,   240,   241,   242,   243,   244,   262,   265,   269,   273,
-     277,   281,   285,   289,   293,   297
+       0,   155,   155,   158,   159,   162,   169,   180,   190,   201,
+     212,   214,   216,   223,   229,   230,   234,   235,   236,   237,
+     238,   239,   240,   241,   242,   243,   261,   264,   268,   272,
+     276,   280,   284,   288,   292,   296
 };
 #endif
 
@@ -1390,7 +1389,7 @@ yyreduce:
   switch (yyn)
     {
         case 5:
-#line 163 "aula3.y" /* yacc.c:1646  */
+#line 162 "aula3.y" /* yacc.c:1646  */
     {
         if(OK == 1){
             if (err != -1)
@@ -1398,11 +1397,11 @@ yyreduce:
             err = 0;
         }
     }
-#line 1402 "aula3.tab.c" /* yacc.c:1646  */
+#line 1401 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 170 "aula3.y" /* yacc.c:1646  */
+#line 169 "aula3.y" /* yacc.c:1646  */
     {
         if(OK == 1){
             Vars *aux = buscaVars(lista, (yyvsp[0].str));
@@ -1414,11 +1413,11 @@ yyreduce:
             }
         }
     }
-#line 1418 "aula3.tab.c" /* yacc.c:1646  */
+#line 1417 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 181 "aula3.y" /* yacc.c:1646  */
+#line 180 "aula3.y" /* yacc.c:1646  */
     {
          Vars *aux = buscaVars(lista, (yyvsp[-2].str)); 
         if(aux == NULL){
@@ -1428,11 +1427,11 @@ yyreduce:
             printf("%s -> Variavel já Declarada!\n", (yyvsp[-2].str));
         }   
     }
-#line 1432 "aula3.tab.c" /* yacc.c:1646  */
+#line 1431 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 191 "aula3.y" /* yacc.c:1646  */
+#line 190 "aula3.y" /* yacc.c:1646  */
     {
 
        Vars *aux = buscaVars(lista, (yyvsp[-2].str)); 
@@ -1444,11 +1443,11 @@ yyreduce:
             aux->valor = eval((yyvsp[0].a));
        }
     }
-#line 1448 "aula3.tab.c" /* yacc.c:1646  */
+#line 1447 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 202 "aula3.y" /* yacc.c:1646  */
+#line 201 "aula3.y" /* yacc.c:1646  */
     {
         
         Vars *busca = buscaVars(lista, (yyvsp[-1].str)); 
@@ -1460,82 +1459,82 @@ yyreduce:
        }
 
     }
-#line 1464 "aula3.tab.c" /* yacc.c:1646  */
+#line 1463 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 217 "aula3.y" /* yacc.c:1646  */
+#line 216 "aula3.y" /* yacc.c:1646  */
     {
 							OK = 1;
 						}
-#line 1472 "aula3.tab.c" /* yacc.c:1646  */
+#line 1471 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 224 "aula3.y" /* yacc.c:1646  */
+#line 223 "aula3.y" /* yacc.c:1646  */
     {
 			if(OK==1) OK=0;
 			else OK=1;
 			}
-#line 1481 "aula3.tab.c" /* yacc.c:1646  */
+#line 1480 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 235 "aula3.y" /* yacc.c:1646  */
+#line 234 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('+',(yyvsp[-2].a),(yyvsp[0].a));}
-#line 1487 "aula3.tab.c" /* yacc.c:1646  */
+#line 1486 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 236 "aula3.y" /* yacc.c:1646  */
+#line 235 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('-',(yyvsp[-2].a),(yyvsp[0].a));}
-#line 1493 "aula3.tab.c" /* yacc.c:1646  */
+#line 1492 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 237 "aula3.y" /* yacc.c:1646  */
+#line 236 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('*',(yyvsp[-2].a),(yyvsp[0].a));}
-#line 1499 "aula3.tab.c" /* yacc.c:1646  */
+#line 1498 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 238 "aula3.y" /* yacc.c:1646  */
+#line 237 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('/',(yyvsp[-2].a),(yyvsp[0].a));}
-#line 1505 "aula3.tab.c" /* yacc.c:1646  */
+#line 1504 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 239 "aula3.y" /* yacc.c:1646  */
+#line 238 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = (yyvsp[-1].a);}
-#line 1511 "aula3.tab.c" /* yacc.c:1646  */
+#line 1510 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 240 "aula3.y" /* yacc.c:1646  */
+#line 239 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('M',(yyvsp[0].a),NULL);}
-#line 1517 "aula3.tab.c" /* yacc.c:1646  */
+#line 1516 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 241 "aula3.y" /* yacc.c:1646  */
+#line 240 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('^',(yyvsp[-2].a),(yyvsp[0].a));}
-#line 1523 "aula3.tab.c" /* yacc.c:1646  */
+#line 1522 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 242 "aula3.y" /* yacc.c:1646  */
+#line 241 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newast('@',(yyvsp[0].a),NULL);}
-#line 1529 "aula3.tab.c" /* yacc.c:1646  */
+#line 1528 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 243 "aula3.y" /* yacc.c:1646  */
+#line 242 "aula3.y" /* yacc.c:1646  */
     {(yyval.a) = newnum((yyvsp[0].real));}
-#line 1535 "aula3.tab.c" /* yacc.c:1646  */
+#line 1534 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 244 "aula3.y" /* yacc.c:1646  */
+#line 243 "aula3.y" /* yacc.c:1646  */
     { 
             Vars *aux = buscaVars(lista, (yyvsp[0].str));
 
@@ -1552,98 +1551,98 @@ yyreduce:
             }
         
         }
-#line 1556 "aula3.tab.c" /* yacc.c:1646  */
+#line 1555 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 262 "aula3.y" /* yacc.c:1646  */
+#line 261 "aula3.y" /* yacc.c:1646  */
     {(yyval.real) = (yyvsp[0].real);}
-#line 1562 "aula3.tab.c" /* yacc.c:1646  */
+#line 1561 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 265 "aula3.y" /* yacc.c:1646  */
+#line 264 "aula3.y" /* yacc.c:1646  */
     {
 			if ((yyvsp[-2].a) < (yyvsp[0].a)) (yyval.inte)=OK = 1;
 			else (yyval.inte)=OK = 0;
 			}
-#line 1571 "aula3.tab.c" /* yacc.c:1646  */
+#line 1570 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 269 "aula3.y" /* yacc.c:1646  */
+#line 268 "aula3.y" /* yacc.c:1646  */
     {
             if ((yyvsp[-2].a) > (yyvsp[0].a)) (yyval.inte)=OK = 1;
 			else (yyval.inte)=OK = 0;
             }
-#line 1580 "aula3.tab.c" /* yacc.c:1646  */
+#line 1579 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 273 "aula3.y" /* yacc.c:1646  */
+#line 272 "aula3.y" /* yacc.c:1646  */
     {
             if ((yyvsp[-2].a) == (yyvsp[0].a)) (yyval.inte)=OK = 1;
 			else (yyval.inte)=OK = 0;
             }
-#line 1589 "aula3.tab.c" /* yacc.c:1646  */
+#line 1588 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 277 "aula3.y" /* yacc.c:1646  */
+#line 276 "aula3.y" /* yacc.c:1646  */
     {
             if ((yyvsp[-2].a) >= (yyvsp[0].a)) (yyval.inte)=OK = 1;
             else (yyval.inte)=OK = 0;
             }
-#line 1598 "aula3.tab.c" /* yacc.c:1646  */
+#line 1597 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 281 "aula3.y" /* yacc.c:1646  */
+#line 280 "aula3.y" /* yacc.c:1646  */
     {
             if ((yyvsp[-2].a) <= (yyvsp[0].a)) (yyval.inte)=OK = 1;
             else (yyval.inte)=OK = 0;
             }
-#line 1607 "aula3.tab.c" /* yacc.c:1646  */
+#line 1606 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 285 "aula3.y" /* yacc.c:1646  */
+#line 284 "aula3.y" /* yacc.c:1646  */
     {
             if ((yyvsp[-2].a) == (yyvsp[0].a)) (yyval.inte)=OK = 1;
             else (yyval.inte)=OK = 0;
             }
-#line 1616 "aula3.tab.c" /* yacc.c:1646  */
+#line 1615 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 289 "aula3.y" /* yacc.c:1646  */
+#line 288 "aula3.y" /* yacc.c:1646  */
     {
             if ((yyvsp[-2].a) != (yyvsp[0].a)) (yyval.inte)=OK = 1;
             else (yyval.inte)=OK = 0;
             }
-#line 1625 "aula3.tab.c" /* yacc.c:1646  */
+#line 1624 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 293 "aula3.y" /* yacc.c:1646  */
+#line 292 "aula3.y" /* yacc.c:1646  */
     {
             if (((yyvsp[-2].inte) == 1) && ((yyvsp[0].inte)==1)) (yyval.inte)=OK = 1;
             else (yyval.inte)=OK = 0;
             }
-#line 1634 "aula3.tab.c" /* yacc.c:1646  */
+#line 1633 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 297 "aula3.y" /* yacc.c:1646  */
+#line 296 "aula3.y" /* yacc.c:1646  */
     {
             if (((yyvsp[-2].inte) == 0) && ((yyvsp[0].inte)==0)) (yyval.inte)=OK = 0;
             else (yyval.inte)=OK = 1;
             }
-#line 1643 "aula3.tab.c" /* yacc.c:1646  */
+#line 1642 "aula3.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1647 "aula3.tab.c" /* yacc.c:1646  */
+#line 1646 "aula3.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1871,7 +1870,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 303 "aula3.y" /* yacc.c:1906  */
+#line 302 "aula3.y" /* yacc.c:1906  */
 
 #include "lex.yy.c"
 int main(){

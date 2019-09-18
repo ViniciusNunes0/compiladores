@@ -15,7 +15,6 @@
         struct vars *next;
     }Vars;
 
-    ////////////////
     typedef struct ast {
         int nodetype;
         struct ast *l;

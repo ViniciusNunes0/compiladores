@@ -1,7 +1,6 @@
-all: aula2.l aula3.y
+all : javanunes.l javanunes.y
 	clear
-	flex -i aula2.l
-	bison aula3.y
-	gcc aula3.tab.c -o analisador -lfl -lm
+	flex -i javanunes.l
+	bison javanunes.y
+	gcc javanunes.tab.c -o analisador -ll -lm
 	./analisador
-	

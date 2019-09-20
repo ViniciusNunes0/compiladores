@@ -1,0 +1,20 @@
+javanunes{
+
+alturaJ = 1.30
+alturaM = 1.20
+crecJ = 0.02
+crecM = 0.03
+ano = 0
+while(alturaM<=alturaJ){
+	system(alturaJ)
+	alturaJ = alturaJ+crecJ
+	system(alturaM)
+	alturaM = alturaM+crecM
+	ano = ano + 1
+}
+system(alturaJ)
+system(alturaM)
+
+system(ano)
+}fimjavanunes
+
